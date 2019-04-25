@@ -1,5 +1,14 @@
 ﻿using UnityEngine;
 
+
+/**
+ * Board.
+ * Tile.
+ * Enemigos -> Arquero, lancero, soldado
+ * GameManager. Encargado de la musica General.
+ * EnemyManager ->
+ * Jugador 
+ * */
 namespace InformaticaMusical
 {
     public class GameManager : MonoBehaviour
@@ -21,6 +30,5 @@ namespace InformaticaMusical
         {
             Board.Init();
         }
-
     }
 }
