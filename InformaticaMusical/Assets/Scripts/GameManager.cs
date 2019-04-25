@@ -15,8 +15,13 @@ namespace InformaticaMusical
     {
         public static GameManager Instance;
 
+        [Header("Attributes")]
+        public int Width;
+        public Vector2Int[] EnemiesPos;
+
         [Header("References")]
         public Board Board;
+        public EnemyManager EnemyManager;
 
         private void Awake()
         {
@@ -28,7 +33,8 @@ namespace InformaticaMusical
         /// </summary>
         private void Start()
         {
-            Board.Init();
+            Board.Init(Width);
+            EnemyManager.Init(EnemiesPos);
         }
     }
 }
