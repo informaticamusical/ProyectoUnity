@@ -672,8 +672,10 @@ MonoBehaviour:
     EnemyPos: {x: 4, y: 4}
   - EnemyAsset: {fileID: 11400000, guid: c4ba4faaee865a8438eb35f649855d48, type: 2}
     EnemyPos: {x: 5, y: 5}
-  - EnemyAsset: {fileID: 11400000, guid: c4ba4faaee865a8438eb35f649855d48, type: 2}
-    EnemyPos: {x: 10, y: 10}
+  - EnemyAsset: {fileID: 11400000, guid: 7dad7aa5ef6010d41a141b9575e1d34e, type: 2}
+    EnemyPos: {x: 2, y: 2}
+  - EnemyAsset: {fileID: 11400000, guid: 7dad7aa5ef6010d41a141b9575e1d34e, type: 2}
+    EnemyPos: {x: 4, y: 8}
   BoardWidth: 10
   Board: {fileID: 1009836960125752027}
   EnemyManager: {fileID: 1111748410}

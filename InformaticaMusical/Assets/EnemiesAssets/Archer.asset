@@ -16,6 +16,6 @@ MonoBehaviour:
   EnemyPrefab: {fileID: 1043646153409701143, guid: 75f48ae660c7cb54a8ba1d53f02bf41a,
     type: 3}
   Audios:
-  - {fileID: 8300000, guid: 4a7d5976b5d1a0047ab664b37c837e1c, type: 3}
-  - {fileID: 8300000, guid: 3ae57d1f98418e84094d24a41018860c, type: 3}
-  - {fileID: 8300000, guid: 3ae57d1f98418e84094d24a41018860c, type: 3}
+  - {fileID: 8300000, guid: f572ec542bbb68545a68a3ecb4ca06c2, type: 3}
+  - {fileID: 8300000, guid: 31ea86a99a22e414da2a3b06c06fcd72, type: 3}
+  - {fileID: 8300000, guid: 17c04232106618643bb9b9c4262c5fba, type: 3}
