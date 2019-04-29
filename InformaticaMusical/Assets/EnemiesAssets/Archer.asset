@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bd38dcd6837b43af05947634403a4, type: 3}
   m_Name: Archer
   m_EditorClassIdentifier: 
-  Multiplier: 4
+  Multiplier: 8
   EnemyPrefab: {fileID: 1043646153409701143, guid: 75f48ae660c7cb54a8ba1d53f02bf41a,
     type: 3}
   Audios:
