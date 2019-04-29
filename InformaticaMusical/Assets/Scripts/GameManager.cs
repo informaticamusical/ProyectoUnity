@@ -15,26 +15,11 @@ namespace InformaticaMusical
     {
         public static GameManager Instance;
 
-        [Header("Attributes")]
-        public int Width;
-        public Vector2Int[] EnemiesPos;
-
-        [Header("References")]
-        public Board Board;
-        public EnemyManager EnemyManager;
-
         private void Awake()
         {
             Instance = this;
         }
 
-        /// <summary>
-        /// Construye el juego
-        /// </summary>
-        private void Start()
-        {
-            Board.Init(Width);
-            EnemyManager.Init(EnemiesPos);
-        }
+
     }
 }

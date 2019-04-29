@@ -2,13 +2,14 @@
 
 namespace InformaticaMusical
 {
-    public class Tile : MonoBehaviour
+    public class Enemy : MonoBehaviour
     {
-        public bool HasEnemy { get; set; }
 
         public void Init()
         {
-            HasEnemy = false;
+
         }
     }
+
 }
+
