@@ -4,15 +4,21 @@ namespace InformaticaMusical
 {
     public class Enemy : MonoBehaviour
     {
+        private AudioSource audioSource;
 
-        public void Init()
+        private void Awake()
         {
+            audioSource = GetComponentInChildren<AudioSource>();
+        }
 
+        public void Init(AudioClip audioClip)
+        {
+            audioSource.clip = audioClip;
         }
 
         public void DoAction()
         {
-            Debug.Log("Acción de: " + gameObject.name);
+            audioSource.Play();
         }
     }
 

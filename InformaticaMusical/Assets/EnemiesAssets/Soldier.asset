@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bd38dcd6837b43af05947634403a4, type: 3}
   m_Name: Soldier
   m_EditorClassIdentifier: 
+  Multiplier: 4
   EnemyPrefab: {fileID: 1043646153409701143, guid: 9bd42e6b259ff9147b66a2eba88ba365,
     type: 3}
   Audios:
-  - {fileID: 8300000, guid: 3ae57d1f98418e84094d24a41018860c, type: 3}
+  - {fileID: 8300000, guid: 4a7d5976b5d1a0047ab664b37c837e1c, type: 3}
   - {fileID: 8300000, guid: 3ae57d1f98418e84094d24a41018860c, type: 3}
   - {fileID: 8300000, guid: 3ae57d1f98418e84094d24a41018860c, type: 3}

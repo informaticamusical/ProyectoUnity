@@ -8,6 +8,8 @@ namespace InformaticaMusical
     [CreateAssetMenu(fileName = ("New Enemy"), menuName = "Enemy")]
     public class EnemyAsset : ScriptableObject
     {
+        public double Multiplier = 4; //TODO: Comentar
+
         public Enemy EnemyPrefab;
         public AudioClip[] Audios;    //Pistas que reproducen al hacer una accion
     }
