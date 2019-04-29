@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &203692957
 AudioSource:
   m_ObjectHideFlags: 0
@@ -492,13 +492,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 5, y: 8, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!1 &1111748409
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,11 +574,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialEnemies:
   - EnemyAsset: {fileID: 11400000, guid: c4ba4faaee865a8438eb35f649855d48, type: 2}
-    EnemyPos: {x: 0, y: 0}
+    EnemyPos: {x: 2, y: 0}
+  - EnemyAsset: {fileID: 11400000, guid: 7dad7aa5ef6010d41a141b9575e1d34e, type: 2}
+    EnemyPos: {x: 6, y: 4}
   - EnemyAsset: {fileID: 11400000, guid: c4ba4faaee865a8438eb35f649855d48, type: 2}
-    EnemyPos: {x: 2, y: 2}
-  - EnemyAsset: {fileID: 11400000, guid: c4ba4faaee865a8438eb35f649855d48, type: 2}
-    EnemyPos: {x: 7, y: 3}
+    EnemyPos: {x: 10, y: 10}
   BoardWidth: 10
   Board: {fileID: 1009836960125752027}
   EnemyManager: {fileID: 1111748410}
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5346f141af65434d95e6c9f9ba9d8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoardOffset: {x: 0.5, y: -0.5, z: 0.5}
+  BoardOffset: {x: 0, y: 0, z: 0}
   TilePrefab: {fileID: 6641046295056643498, guid: a4091f4333985984b9a23a1525f58298,
     type: 3}
 --- !u!4 &3218498832531571852

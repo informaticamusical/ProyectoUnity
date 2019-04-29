@@ -6,9 +6,21 @@ namespace InformaticaMusical
 {
     public class EnemyManager : MonoBehaviour
     {
+        /// <summary>
+        /// Lista con la lista de los diferentes tipos de enemigos
+        /// </summary>
         private List<EnemyGroup> Enemies;
+
+        /// <summary>
+        /// Referencia al tablero
+        /// </summary>
         private Board _board;
 
+        /// <summary>
+        /// Obtiene referencias
+        /// Inicializa atributos
+        /// </summary>
+        /// <param name="board"></param>
         public void Init(Board board)
         {
             _board = board;
@@ -23,7 +35,7 @@ namespace InformaticaMusical
         public void AddEnemy(EnemyAsset enemyAsset, Vector2Int enemyPos)
         {
             //Comprobación de error
-            if (enemyPos.x > _board.Tiles.Length || enemyPos.y > _board.Tiles.Length)
+            if (enemyPos.x >= _board.GetWidth() || enemyPos.y >= _board.GetWidth())
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.LogError("Se ha tratado de añadir un enemigo en Tile Inexistente");
 #endif
@@ -35,7 +47,7 @@ namespace InformaticaMusical
                 //Si no existe el grupo, se crea 
                 if (enemyGroup == null)
                 {
-                    GameObject enemyGroupGO = new GameObject("EnemyGroup: " + enemyAsset.ToString());
+                    GameObject enemyGroupGO = new GameObject("EnemyGroup: " + enemyAsset.name);
                     enemyGroup =  enemyGroupGO.AddComponent<EnemyGroup>();
                     enemyGroup.Init(enemyAsset);
                     enemyGroup.transform.parent = transform;
@@ -44,6 +56,7 @@ namespace InformaticaMusical
 
                 //Creamos y añadimos el enemigo a su grupo
                 Enemy enemy = Instantiate(enemyGroup.EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x,0.0f,enemyPos.y),Quaternion.identity,enemyGroup.transform);
+                enemyGroup.Enemies.Add(enemy);
                 _board.Tiles[enemyPos.x, enemyPos.y].HasEnemy = true;
             }
 

@@ -9,6 +9,11 @@ namespace InformaticaMusical
         {
 
         }
+
+        public void DoAction()
+        {
+            Debug.Log("Acción de: " + gameObject.name);
+        }
     }
 
 }

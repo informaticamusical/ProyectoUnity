@@ -8,23 +8,23 @@ namespace InformaticaMusical
     public class Tile : MonoBehaviour
     {
         /// <summary>
-        /// Posición lógica del tile
-        /// </summary>
-        public Vector2Int Pos { get; protected set; } 
-
-        /// <summary>
-        /// Devuelve tiene un enemigo encima
+        /// Devuelve si tiene un enemigo encima
         /// TODO: Enemy en vez de bool?
         /// </summary>
         public bool HasEnemy { get; set; }
 
         /// <summary>
-        /// Inicializa el Tile
+        /// Posición lógica del tile
+        /// </summary>
+        private Vector2Int pos;
+
+        /// <summary>
+        /// Inicializa atributos
         /// </summary>
         public void Init()
         {
-            Pos.Set((int)transform.localPosition.x, (int)transform.localPosition.z);
             HasEnemy = false;
+            pos.Set((int)transform.localPosition.x, (int)transform.localPosition.z);
         }
     }
 }

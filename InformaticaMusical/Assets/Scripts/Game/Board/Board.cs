@@ -12,12 +12,12 @@ namespace InformaticaMusical
         public Vector3 BoardOffset;     //Offset de todo el tablero
 
         [Header("References")]
-        public Tile TilePrefab;
+        public Tile TilePrefab;     //TODO: Diferentes tipos de Tiles?
 
         /// <summary>
         /// Matriz del tablero
         /// </summary>
-        public Tile[,] Tiles;
+        public Tile[,] Tiles { get; protected set; }
 
         //TODO. Referencias a levelManager?
         //TODO: Constructor de mapa por fichero???
@@ -45,7 +45,10 @@ namespace InformaticaMusical
             transform.position = BoardOffset;
         }
 
-
-
+        /// <summary>
+        /// Devuelve el tamaño del tablero
+        /// </summary>
+        /// <returns></returns>
+        public uint GetWidth() { return (uint)Tiles.GetLength(0); }
     }
 }

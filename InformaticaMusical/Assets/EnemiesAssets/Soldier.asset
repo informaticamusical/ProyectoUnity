@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 473bd38dcd6837b43af05947634403a4, type: 3}
-  m_Name: Archer
+  m_Name: Soldier
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 1043646153409701143, guid: 75f48ae660c7cb54a8ba1d53f02bf41a,
+  EnemyPrefab: {fileID: 1043646153409701143, guid: 9bd42e6b259ff9147b66a2eba88ba365,
     type: 3}
   Audios:
   - {fileID: 8300000, guid: 3ae57d1f98418e84094d24a41018860c, type: 3}

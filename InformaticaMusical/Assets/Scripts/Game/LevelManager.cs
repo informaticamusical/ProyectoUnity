@@ -4,6 +4,7 @@ namespace InformaticaMusical
 {
     /// <summary>
     /// Clase serializable para poder establecer enemigos desde el Editor
+    /// Tipo de enemigo y posicion en la que aparece
     /// </summary>
     [System.Serializable]
     public class EnemyInfo

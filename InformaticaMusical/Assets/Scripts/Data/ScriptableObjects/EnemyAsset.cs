@@ -3,7 +3,7 @@
 namespace InformaticaMusical
 {
     /// <summary>
-    /// Objeto Scriptable de los enemigos
+    /// Objeto Scriptable que define un tipo de enemigo
     /// </summary>
     [CreateAssetMenu(fileName = ("New Enemy"), menuName = "Enemy")]
     public class EnemyAsset : ScriptableObject

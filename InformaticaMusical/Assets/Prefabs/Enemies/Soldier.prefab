@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7857177203509536717}
   - component: {fileID: 1043646153409701143}
   - component: {fileID: 1904273590944911346}
-  - component: {fileID: 7852296243158604608}
+  - component: {fileID: 5011286126319906010}
   m_Layer: 0
-  m_Name: Archer
+  m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!82 &7852296243158604608
+--- !u!82 &5011286126319906010
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,7 +213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e48932534f415a34da3484d2a2b0c8fc, type: 2}
+  - {fileID: 2100000, guid: 263330ea1955f5040854fef181da8514, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
