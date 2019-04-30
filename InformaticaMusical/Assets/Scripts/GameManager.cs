@@ -20,6 +20,5 @@ namespace InformaticaMusical
             Instance = this;
         }
 
-
     }
 }
