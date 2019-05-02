@@ -5,27 +5,30 @@ namespace InformaticaMusical
     public class Enemy : MonoBehaviour
     {
         private AudioSource audioSource;
+        private Rigidbody rb;
+        private float velocity = 1.0f, jumpForce = 5.0f;
 
         float startScale = 1.0f, maxScale = 3.0f;
         Material material;
 
 
-        public float[] samples = new float[512];
-        public float[] freqBand = new float[8];
-        public float[] bandBuffer = new float[8];
+        private float[] samples = new float[512];
+        private float[] freqBand = new float[8];
+        private float[] bandBuffer = new float[8];
         float[] bufferDecrease = new float[8];
 
         float[] freqBandHighest = new float[8];
-        public float[] audioBand= new float[8];
-        public float[] audioBandBuffer = new float[8];
+        private float[] audioBand= new float[8];
+        private float[] audioBandBuffer = new float[8];
 
-        public float amplitude, amplitudeBuffer;
-        public float amplitudeHighest;
+        private float amplitude, amplitudeBuffer;
+        private float amplitudeHighest;
         
 
         private void Awake()
         {
             audioSource = GetComponentInChildren<AudioSource>();
+            rb = GetComponent<Rigidbody>();
             material = GetComponentInChildren<MeshRenderer>().materials[0];
         }
 
@@ -47,7 +50,11 @@ namespace InformaticaMusical
         public void DoAction()
         {
             audioSource.Play();
+
+            MoveGameObject();
         }
+
+        #region metodosMusica
 
         void GetSpectrumAudioSource()
         {
@@ -124,15 +131,23 @@ namespace InformaticaMusical
                 amplitudeHighest = currentAmplitude;
             }
             amplitude = currentAmplitude / amplitudeHighest;
-            Debug.Log("amplitude:" + amplitude);
             amplitudeBuffer = currentAmplitudeBuffer / amplitudeHighest;
         }
 
+        #endregion metodosMusica
+
         void UpdateLocalScale()
         {
-            this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x, (amplitude * maxScale) + startScale, this.gameObject.transform.localScale.z);
-            Color color = new Color(amplitude, amplitude, amplitude);
-            material.SetColor("EmissionColor", color);
+            if (!float.IsNaN(amplitude))
+            {
+                this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x, (amplitude * maxScale) + startScale, this.gameObject.transform.localScale.z);
+                Color color = new Color(amplitude, amplitude, amplitude);
+                material.SetColor("EmissionColor", color);
+            }
+        }
+
+        void MoveGameObject() {
+            rb.velocity = new Vector3(velocity, jumpForce, 0);
         }
     }
 
