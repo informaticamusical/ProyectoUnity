@@ -1,16 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace InformaticaMusical
 {
     public class Enemy : MonoBehaviour
     {
+        private System.Random rnd = new System.Random(Guid.NewGuid().GetHashCode());
+
         private AudioSource audioSource;
         private Rigidbody rb;
-        private float velocity = 1.0f, jumpForce = 5.0f;
-
-        float startScale = 1.0f, maxScale = 3.0f;
         Material material;
 
+        private Board _board;
+
+        private int velocity = 1, jumpForce = 5;
+
+        float startScale = 1.0f, maxScale = 3.0f;
 
         private float[] samples = new float[512];
         private float[] freqBand = new float[8];
@@ -32,9 +37,10 @@ namespace InformaticaMusical
             material = GetComponentInChildren<MeshRenderer>().materials[0];
         }
 
-        public void Init(AudioClip audioClip)
+        public void Init(AudioClip audioClip, Board board)
         {
             audioSource.clip = audioClip;
+            _board = board;
         }
 
         public void Update()
@@ -147,7 +153,50 @@ namespace InformaticaMusical
         }
 
         void MoveGameObject() {
-            rb.velocity = new Vector3(velocity, jumpForce, 0);
+           /* bool possible = false;
+            Vector3Int myPosition = new Vector3Int((int)this.gameObject.transform.position.x, (int)this.gameObject.transform.position.y, (int)this.gameObject.transform.position.z);
+            do
+            {
+                int newTile = rnd.Next(0, 4);
+                switch (newTile)
+                {
+                    case 0:
+                        if (myPosition.x + velocity < _board.GetWidth() && !_board.Tiles[myPosition.x + velocity, myPosition.z].HasEnemy)
+                        {
+                            _board.Tiles[myPosition.x + velocity, myPosition.z].HasEnemy = true;
+                            rb.velocity = new Vector3(velocity, jumpForce, 0);
+                            possible = true;
+                        }
+                        break;
+                    case 1:
+                        if (myPosition.x - velocity >= 0 && !_board.Tiles[myPosition.x - velocity, myPosition.z].HasEnemy)
+                        {
+                            _board.Tiles[myPosition.x - velocity, myPosition.z].HasEnemy = true;
+                            rb.velocity = new Vector3(-velocity, jumpForce, 0);
+                            possible = true;
+                        }
+                        break;
+                    case 2:
+                        if (myPosition.z + velocity < _board.GetWidth() && !_board.Tiles[myPosition.x , myPosition.z + velocity].HasEnemy)
+                        {
+                            _board.Tiles[myPosition.x, myPosition.z + velocity].HasEnemy = true;
+                            rb.velocity = new Vector3(0, jumpForce, velocity);
+                            possible = true;
+                        }
+                        break;
+                    case 3:
+                        if (myPosition.z - velocity >= 0 && !_board.Tiles[myPosition.x , myPosition.z - velocity].HasEnemy)
+                        {
+                            _board.Tiles[myPosition.x, myPosition.z - velocity].HasEnemy = true;
+                            rb.velocity = new Vector3(0, jumpForce, - velocity);
+                            possible = true;
+                        }
+                        break;
+                }
+            }
+            while (!possible);
+
+            _board.Tiles[myPosition.x, myPosition.z].HasEnemy = false;*/
         }
     }
 

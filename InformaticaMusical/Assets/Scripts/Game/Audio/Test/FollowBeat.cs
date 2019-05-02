@@ -20,6 +20,7 @@ public class FollowBeat : MonoBehaviour {
         //Me tengo que mover
 		if(c.getSongPosition() > lastBeat + c.getCrotchet() * multiplier)
         {
+            Debug.Log("do something");
             //do something
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x + 1, this.gameObject.transform.localScale.y+1, this.gameObject.transform.localScale.z+1);
             this.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
