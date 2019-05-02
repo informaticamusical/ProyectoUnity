@@ -76,7 +76,7 @@ namespace InformaticaMusical
                 else
                 {
                     //Creamos y añadimos el enemigo a su grupo
-                    Enemy enemy = Instantiate(enemyGroup.EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x, 0.0f, enemyPos.y), Quaternion.identity, enemyGroup.transform);
+                    Enemy enemy = Instantiate(enemyGroup.EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x, _board.TilePrefab.gameObject.transform.localScale.y/2.0f, enemyPos.y), Quaternion.identity, enemyGroup.transform);
                     enemy.Init(enemyAsset.Audios[enemyGroup.Enemies.Count]);
                     enemyGroup.Enemies.Add(enemy);
                     _board.Tiles[enemyPos.x, enemyPos.y].HasEnemy = true;
