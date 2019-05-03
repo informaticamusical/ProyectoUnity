@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
-namespace InformaticaMusical
-{
-    public class EnemyManager : MonoBehaviour
-    {
+namespace InformaticaMusical {
+    public class EnemyManager : MonoBehaviour {
         /// <summary>
         /// TODO: Comentario
         /// //un conductor por ritmo. Si todos siguen el ritmo de la cancion de fondo, solo habria un conductor, se tendria que cambiar el multiplicador por cada tipo de enemigo
@@ -27,17 +25,15 @@ namespace InformaticaMusical
         /// Inicializa atributos
         /// </summary>
         /// <param name="board"></param>
-        public void Init(Board board)
-        {
+        public void Init (Board board) {
             _board = board;
-            Enemies = new List<EnemyGroup>();
+            Enemies = new List<EnemyGroup> ();
 
-            ConductorData.init();
+            ConductorData.init ();
         }
 
-        private void Update()
-        {
-            ConductorData.update();
+        private void Update () {
+            ConductorData.update ();
         }
 
         /// <summary>
@@ -45,41 +41,38 @@ namespace InformaticaMusical
         /// </summary>
         /// <param name="enemyAsset"></param>
         /// <param name="enemyPos"></param>
-        public void AddEnemy(EnemyAsset enemyAsset, Vector2Int enemyPos)
-        {
+        public void AddEnemy (EnemyAsset enemyAsset, Vector2Int enemyPos) {
             //Comprobación de error
-            if (enemyPos.x >= _board.GetWidth() || enemyPos.y >= _board.GetWidth())
+            if (enemyPos.x >= _board.GetWidth () || enemyPos.y >= _board.GetWidth ())
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                Debug.LogError("Se ha tratado de añadir un enemigo en Tile Inexistente");
+                Debug.LogError ("Se ha tratado de añadir un enemigo en Tile Inexistente");
 #endif
-            else
-            {
+            else {
                 //Buscamos el grupo al que corresponde este enemigo
-                EnemyGroup enemyGroup = Enemies.FirstOrDefault(t => t.EnemyAsset == enemyAsset);
+                EnemyGroup enemyGroup = Enemies.FirstOrDefault (t => t.EnemyAsset == enemyAsset);
 
                 //Si no existe el grupo, se crea 
-                if (enemyGroup == null)
-                {
-                    GameObject enemyGroupGO = new GameObject("EnemyGroup: " + enemyAsset.name);
-                    enemyGroup = enemyGroupGO.AddComponent<EnemyGroup>();
-                    enemyGroup.Init(ConductorData, enemyAsset);
+                if (enemyGroup == null) {
+                    GameObject enemyGroupGO = new GameObject ("EnemyGroup: " + enemyAsset.name);
+                    enemyGroup = enemyGroupGO.AddComponent<EnemyGroup> ();
+                    enemyGroup.Init (ConductorData, enemyAsset);
                     enemyGroup.transform.parent = transform;
-                    Enemies.Add(enemyGroup);
+                    Enemies.Add (enemyGroup);
                 }
 
                 //Comprobación de si se puede añadir este tipo de enemigo
                 if (enemyGroup.Enemies.Count == enemyGroup.EnemyAsset.Audios.Length)
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                    Debug.LogError("No se pueden añadir más enemigos de este tipo");
+                    Debug.LogError ("No se pueden añadir más enemigos de este tipo");
 #endif
 
-                else
-                {
+                else {
                     //Creamos y añadimos el enemigo a su grupo
-                    Enemy enemy = Instantiate(enemyGroup.EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x, _board.TilePrefab.gameObject.transform.localScale.y/2.0f, enemyPos.y), Quaternion.identity, enemyGroup.transform);
-                    enemy.Init(enemyAsset.Audios[enemyGroup.Enemies.Count], _board);
-                    enemyGroup.Enemies.Add(enemy);
+                    Enemy enemy = Instantiate (enemyGroup.EnemyAsset.EnemyPrefab, new Vector3 (enemyPos.x, _board.TilePrefab.gameObject.transform.localScale.y / 2.0f, enemyPos.y), Quaternion.identity, enemyGroup.transform);
+                    enemy.Init (enemyAsset.Audios[enemyGroup.Enemies.Count], _board);
+                    enemyGroup.Enemies.Add (enemy);
                     _board.Tiles[enemyPos.x, enemyPos.y].HasEnemy = true;
+                    enemy.SetTilePosition (enemyPos.x, enemyPos.y);
                 }
             }
 
