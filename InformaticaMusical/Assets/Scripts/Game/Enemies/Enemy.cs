@@ -12,7 +12,7 @@ namespace InformaticaMusical {
 
         private Board _board;
 
-        private int velocity = 1, jumpForce = 5;
+        private int tilesPerJump = 1;
 
         float startScale = 1.0f, maxScale = 3.0f;
 
@@ -61,10 +61,13 @@ namespace InformaticaMusical {
 
             UpdateLocalScale ();
         }
-        public void DoAction () {
-            audioSource.Play ();
 
-            MoveGameObject ();
+        public void DoAction (float pitch) {
+            // aumentar el pitch de este sonido
+            audioSource.pitch = pitch;
+            audioSource.Play();
+
+            MoveGameObject();
         }
 
         #region metodosMusica
@@ -134,6 +137,8 @@ namespace InformaticaMusical {
 
         #endregion metodosMusica
 
+        #region Movements
+
         void UpdateLocalScale () {
             if (!float.IsNaN (amplitude)) {
                 this.gameObject.transform.localScale = new Vector3 (this.gameObject.transform.localScale.x, (amplitude * maxScale) + startScale, this.gameObject.transform.localScale.z);
@@ -148,7 +153,7 @@ namespace InformaticaMusical {
             Vector3 targetPoint = startPoint + direction;
             float time = 0;
             float jumpProgress = 0;
-            float velocityY = -0.5f * Physics.gravity.y / 2;;
+            float tilesPerJumpY = -0.5f * Physics.gravity.y / 2;;
             float height = startPoint.y;
 
             while (jumping) {
@@ -166,8 +171,8 @@ namespace InformaticaMusical {
                 //Wait until next frame.
                 yield return null;
 
-                height += velocityY * Time.deltaTime;
-                velocityY += Time.deltaTime * Physics.gravity.y;
+                height += tilesPerJumpY * Time.deltaTime;
+                tilesPerJumpY += Time.deltaTime * Physics.gravity.y;
                 time += Time.deltaTime;
             }
 
@@ -191,34 +196,34 @@ namespace InformaticaMusical {
                 int newTile = rnd.Next (0, 5);
                 switch (newTile) {
                     case 0: //right
-                        if (tilePos.x + velocity < _board.GetWidth () && !(_board.Tiles[tilePos.x + velocity, tilePos.y].HasEnemy)) {
-                            nX = tilePos.x + velocity;
+                        if (tilePos.x + tilesPerJump < _board.GetWidth () && !(_board.Tiles[tilePos.x + tilesPerJump, tilePos.y].HasEnemy)) {
+                            nX = tilePos.x + tilesPerJump;
                             nY = tilePos.y;
-                            target = (transform.right) /**jumpForce*/ ;
+                            target = (transform.right);
                             possible = true;
                         }
                         break;
                     case 1: //left
-                        if (tilePos.x - velocity >= 0 && !(_board.Tiles[tilePos.x - velocity, tilePos.y].HasEnemy)) {
-                            nX = tilePos.x - velocity;
+                        if (tilePos.x - tilesPerJump >= 0 && !(_board.Tiles[tilePos.x - tilesPerJump, tilePos.y].HasEnemy)) {
+                            nX = tilePos.x - tilesPerJump;
                             nY = tilePos.y;
-                            target = (-transform.right) /**jumpForce*/ ;
+                            target = (-transform.right);
                             possible = true;
                         }
                         break;
                     case 2: //up
-                        if (tilePos.y + velocity < _board.GetWidth () && !_board.Tiles[tilePos.x, tilePos.y + velocity].HasEnemy) {
+                        if (tilePos.y + tilesPerJump < _board.GetWidth () && !_board.Tiles[tilePos.x, tilePos.y + tilesPerJump].HasEnemy) {
                             nX = tilePos.x;
-                            nY = tilePos.y + velocity;
-                            target = (transform.forward) /**jumpForce*/ ;
+                            nY = tilePos.y + tilesPerJump;
+                            target = (transform.forward);
                             possible = true;
                         }
                         break;
                     case 3: //down
-                        if (tilePos.y - velocity >= 0 && !_board.Tiles[tilePos.x, tilePos.y - velocity].HasEnemy) {
+                        if (tilePos.y - tilesPerJump >= 0 && !_board.Tiles[tilePos.x, tilePos.y - tilesPerJump].HasEnemy) {
                             nX = tilePos.x;
-                            nY = tilePos.y - velocity;
-                            target = (-transform.forward) /**jumpForce*/ ;
+                            nY = tilePos.y - tilesPerJump;
+                            target = (-transform.forward);
                             possible = true;
                         }
                         break;
@@ -235,5 +240,7 @@ namespace InformaticaMusical {
                 MoveToTile (nX, nY, target);
         }
     }
+
+    #endregion Movements
 
 }

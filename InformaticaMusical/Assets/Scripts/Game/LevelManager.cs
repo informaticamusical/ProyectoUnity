@@ -23,10 +23,25 @@ namespace InformaticaMusical
         public Board Board;
         public EnemyManager EnemyManager;
 
+        [Header("UI")]
+        public GameObject panel;
+        public float time = 5.0f;
         /// <summary>
         /// Construye el juego
         /// Inicializa el tablero y los enemigos
         /// </summary>
+        /// 
+
+        private void DestroyPanel()
+        {
+            panel.SetActive(false);
+        }
+
+        public void Awake()
+        {
+            Invoke("DestroyPanel", time);
+        }
+
         private void Start()
         {
             Board.Init(BoardWidth);

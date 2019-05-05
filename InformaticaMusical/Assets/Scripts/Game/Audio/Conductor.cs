@@ -19,5 +19,7 @@ namespace InformaticaMusical
 
         public double getCrotchet() { return crotchet; }
         public double getSongPosition() { return songPosition; }
+        public float GetPitch() { return song.pitch;  }
+        public void SetPitch(float pitch) { song.pitch = pitch; }
     }
 }

@@ -32,7 +32,8 @@ namespace InformaticaMusical {
             ConductorData.init ();
         }
 
-        private void Update () {
+        
+        private void Update () { 
             ConductorData.update ();
         }
 
