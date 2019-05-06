@@ -10,7 +10,7 @@ namespace InformaticaMusical
     {
         private AudioSource audioSource;
 
-        float startScale = 1.0f, maxScale = 3.0f;
+        float startScale = 1.0f, maxScale = 1.25f;
         Material material;
 
         private float[] samples = new float[512];
