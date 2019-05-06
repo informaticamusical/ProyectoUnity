@@ -27,7 +27,7 @@ namespace InformaticaMusical
             {
                 // Aumentar el pitch de la melodia
                 foreach (Enemy enemy in Enemies)
-                    enemy.DoAction(_conductorData.GetPitch());
+                    enemy.DoAction(_conductorData.song.pitch);
 
                 lastBeat += _conductorData.getCrotchet() * EnemyAsset.Multiplier;
             }
