@@ -8,16 +8,14 @@ namespace InformaticaMusical
     /// </summary>
     public class Board : MonoBehaviour
     {
-        [Header("Attributes")]
-        public Vector3 BoardOffset;     //Offset de todo el tablero
-
         [Header("References")]
-        public Tile TilePrefab;     //TODO: Diferentes tipos de Tiles?
+        public GameObject TilePrefab;     //TODO: Diferentes tipos de Tiles?
 
         /// <summary>
         /// Matriz del tablero
+        /// True tiene enemigo
         /// </summary>
-        public Tile[,] Tiles { get; protected set; }
+        public bool[,] Tiles { get; set; }
 
         //TODO. Referencias a levelManager?
         //TODO: Constructor de mapa por fichero???
@@ -29,20 +27,17 @@ namespace InformaticaMusical
         public void Init(uint width)
         {
             //Creacion del tablero
-            Tiles = new Tile[width, width];
+            Tiles = new bool[width, width];
 
             for (uint i = 0; i < width; i++)
             {
                 for (uint j = 0; j < width; j++)
                 {
                     //Construye el tile
-                    Tiles[i, j] = Instantiate(TilePrefab, new Vector3(i, 0, j), Quaternion.identity, transform);
-                    Tiles[i, j].Init();
+                    Instantiate(TilePrefab, new Vector3(i, 0, j), Quaternion.identity, transform);
+                    Tiles[i, j] = false;
                 }
             }
-
-            //Aplicamos un offset para que el tablero este bien colocado
-            transform.position = BoardOffset;
         }
 
         /// <summary>

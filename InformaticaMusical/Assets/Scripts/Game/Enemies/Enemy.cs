@@ -6,41 +6,51 @@ namespace InformaticaMusical
 {
     public class Enemy : MonoBehaviour
     {
-        private System.Random rnd = new System.Random(Guid.NewGuid().GetHashCode());
+        //Static
+        /// <summary>
+        /// Genera una semilla random
+        /// </summary>
+        private static System.Random rnd = new System.Random(Guid.NewGuid().GetHashCode()); //TODO: Mejores formas de generar random?
+        private static Vector2Int[] possibleDirs = { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1) };
 
-        private AudioSource audioSource;
+        [Header("Attributes")]
+        public int TilesPerJump;
 
-        private Board _board;
+        //Properties
+        public Vector2Int Pos { get; set; } //Posición logica del enemigo
 
-        private int tilesPerJump = 1;
+        //Own references
+        private AudioSource audioSource;    //Referencia a su sonido
 
+        //Other references
+        private Board _board;               //Referencia al tablero
 
-        Vector2Int tilePos;
-
+        /// <summary>
+        /// Obtiene referencias
+        /// </summary>
         private void Awake()
         {
             audioSource = GetComponentInChildren<AudioSource>();
         }
 
+        /// <summary>
+        /// Inicializa el enemigo. Establece su clip
+        /// </summary>
+        /// <param name="audioClip"></param>
+        /// <param name="board"></param>
         public void Init(AudioClip audioClip, Board board)
         {
             audioSource.clip = audioClip;
             _board = board;
 
-            tilePos = new Vector2Int();
+            Pos = new Vector2Int((int)transform.position.x,(int)transform.position.z);
         }
 
-        public void SetTilePosition(int x, int y)
-        {
-            tilePos.x = x;
-            tilePos.y = y;
-        }
-
-        public Vector2Int GetPosition()
-        {
-            return tilePos;
-        }
-
+        /// <summary>
+        /// Es llamado
+        /// TODO: UTILIZAR EL PITCH
+        /// </summary>
+        /// <param name="pitch"></param>
         public void DoAction(float pitch)
         {
             // aumentar el pitch de este sonido
@@ -50,7 +60,29 @@ namespace InformaticaMusical
             MoveGameObject();
         }
 
+        private void MoveGameObject()
+        {
+            int randomDir = rnd.Next(0, 4);
 
+            Vector2Int movement = possibleDirs[randomDir] * TilesPerJump;
+            Vector2Int newPos = Pos + movement;
+
+            if (newPos.x < _board.GetWidth() && newPos.x >= 0 && newPos.y < _board.GetWidth() && newPos.y >= 0 && !_board.Tiles[newPos.x,newPos.y])
+            {
+                _board.Tiles[Pos.x, Pos.y] = false;
+                _board.Tiles[newPos.x, newPos.y] = true;
+                Pos = newPos;
+
+                StartCoroutine(Jump(new Vector3(movement.x, 0, movement.y)));
+            }
+        }
+
+        /// <summary>
+        /// Corrutina de salto
+        /// TODO: Revisar y parametrizar
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         private IEnumerator Jump(Vector3 direction)
         {
             bool jumping = true;
@@ -87,73 +119,6 @@ namespace InformaticaMusical
             yield break;
         }
 
-        private void MoveToTile(int nX, int nY, Vector3 target)
-        {
-            _board.Tiles[tilePos.x, tilePos.y].HasEnemy = false;
-            _board.Tiles[nX, nY].HasEnemy = true;
-            SetTilePosition(nX, nY);
-            StartCoroutine(Jump(target));
-        }
-
-        private void MoveGameObject()
-        {
-            bool possible = false;
-            int nX = 0, nY = 0;
-            Vector3 target = new Vector3(0, 0, 0);
-
-            do
-            { //better way?
-                int newTile = rnd.Next(0, 5);
-                switch (newTile)
-                {
-                    case 0: //right
-                        if (tilePos.x + tilesPerJump < _board.GetWidth() && !(_board.Tiles[tilePos.x + tilesPerJump, tilePos.y].HasEnemy))
-                        {
-                            nX = tilePos.x + tilesPerJump;
-                            nY = tilePos.y;
-                            target = (transform.right);
-                            possible = true;
-                        }
-                        break;
-                    case 1: //left
-                        if (tilePos.x - tilesPerJump >= 0 && !(_board.Tiles[tilePos.x - tilesPerJump, tilePos.y].HasEnemy))
-                        {
-                            nX = tilePos.x - tilesPerJump;
-                            nY = tilePos.y;
-                            target = (-transform.right);
-                            possible = true;
-                        }
-                        break;
-                    case 2: //up
-                        if (tilePos.y + tilesPerJump < _board.GetWidth() && !_board.Tiles[tilePos.x, tilePos.y + tilesPerJump].HasEnemy)
-                        {
-                            nX = tilePos.x;
-                            nY = tilePos.y + tilesPerJump;
-                            target = (transform.forward);
-                            possible = true;
-                        }
-                        break;
-                    case 3: //down
-                        if (tilePos.y - tilesPerJump >= 0 && !_board.Tiles[tilePos.x, tilePos.y - tilesPerJump].HasEnemy)
-                        {
-                            nX = tilePos.x;
-                            nY = tilePos.y - tilesPerJump;
-                            target = (-transform.forward);
-                            possible = true;
-                        }
-                        break;
-                    case 4: //stay
-                        nX = tilePos.x;
-                        nY = tilePos.y;
-                        possible = true;
-                        break;
-                }
-            }
-            while (!possible);
-
-            if (possible)
-                MoveToTile(nX, nY, target);
-        }
     }
 
 }

@@ -1,31 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FollowBeat : MonoBehaviour {
-    public InformaticaMusical.ConductorData c; //un conductor por ritmo. Si todos siguen el ritmo de la cancion de fondo, solo habria un conductor, se tendria que cambiar el multiplicador por cada tipo de enemigo
-    public double multiplier = 4;
-    double lastBeat;
+/// <summary>
+/// Ejemplo de cómo seguir el ritmo de una canción
+/// </summary>
+public class FollowBeat : MonoBehaviour
+{
+    /// <summary>
+    /// Conductor del ritmo de la canción
+    /// </summary>
+    public InformaticaMusical.ConductorData ConductorData; 
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// Compás que se quiere seguir
+    /// </summary>
+    public double Multiplier = 4;
+
+    double lastBeat;    //Temporizador
+
+    /// <summary>
+    /// Inicializa atributos
+    /// </summary>
+    private void Start()
+    {
         lastBeat = 0.0d;
-        c.init();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        c.update(); //deberia estar en el manager de los enemigos
+        ConductorData.Init();
+    }
 
-        //Me tengo que mover
-		if(c.getSongPosition() > lastBeat + c.getCrotchet() * multiplier)
+    /// <summary>
+    /// Actualiza el conductor y comprueba si tiene que realizar acción
+    /// Aumenta la escala y cambia el color cuando le toca realizar acción
+    /// </summary>
+    private void Update()
+    {
+        ConductorData.Update(); 
+
+        //Me toca realizar acción?
+        if (ConductorData.SongPosition > lastBeat + ConductorData.Crotchet * Multiplier)
         {
             Debug.Log("do something");
-            //do something
-            this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x + 1, this.gameObject.transform.localScale.y+1, this.gameObject.transform.localScale.z+1);
+
+            //Aumenta escala y cambia el color
+            this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x + 1, this.gameObject.transform.localScale.y + 1, this.gameObject.transform.localScale.z + 1);
             this.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
 
-            lastBeat += c.getCrotchet()* multiplier;
+            //Actualizar temporizador
+            lastBeat += ConductorData.Crotchet * Multiplier;
         }
-	}
+    }
 }

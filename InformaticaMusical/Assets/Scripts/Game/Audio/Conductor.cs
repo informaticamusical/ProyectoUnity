@@ -2,22 +2,41 @@
 
 namespace InformaticaMusical
 {
+    /// <summary>
+    /// Clase conductora del ritmo de la canción
+    /// TODO: Comentar
+    /// </summary>
     [System.Serializable]
     public class ConductorData
     {
-        public double bpm = 120;
-        public AudioSource song;
+        public double Bpm = 120;
 
-        private double songPosition;
+        /// <summary>
+        /// Fuente de audio que se sigue
+        /// </summary>
+        public AudioSource TrackedSong;
+
+        /// <summary>
+        /// Posición actual de la canción
+        /// </summary>
+        public double SongPosition { get; private set; }
+        public double Crotchet { get; private set; }
+
         private double offset = 0.2d;
         private double dpsin; //init time
-        private double crotchet;
 
-        public void init() { crotchet = (60 / bpm); dpsin = AudioSettings.dspTime; }
+        public void Init()
+        {
+            Crotchet = 60 / Bpm;
+            dpsin = AudioSettings.dspTime;
+        }
 
-        public void update() { songPosition = (AudioSettings.dspTime - dpsin) * song.pitch - offset; /*(song.time) * song.pitch - offset*/; }
-
-        public double getCrotchet() { return crotchet; }
-        public double getSongPosition() { return songPosition; }
+        /// <summary>
+        /// Actualiza la posición de la canción
+        /// </summary>
+        public void Update()
+        {
+            SongPosition = (AudioSettings.dspTime - dpsin) * TrackedSong.pitch - offset; /*(song.time) * song.pitch - offset*/;
+        }
     }
 }

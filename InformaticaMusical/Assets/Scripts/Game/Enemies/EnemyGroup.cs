@@ -23,13 +23,13 @@ namespace InformaticaMusical
         private void Update()
         {
             //Me tengo que mover
-            if (_conductorData.getSongPosition() > lastBeat + _conductorData.getCrotchet() * EnemyAsset.Multiplier)
+            if (_conductorData.SongPosition > lastBeat + _conductorData.Crotchet * EnemyAsset.Multiplier)
             {
                 // Aumentar el pitch de la melodia
                 foreach (Enemy enemy in Enemies)
-                    enemy.DoAction(_conductorData.song.pitch);
+                    enemy.DoAction(_conductorData.TrackedSong.pitch);
 
-                lastBeat += _conductorData.getCrotchet() * EnemyAsset.Multiplier;
+                lastBeat += _conductorData.Crotchet * EnemyAsset.Multiplier;
             }
         }
     }

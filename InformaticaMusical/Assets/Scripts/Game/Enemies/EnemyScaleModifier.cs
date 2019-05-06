@@ -4,7 +4,7 @@ namespace InformaticaMusical
 {
     /// <summary>
     /// Componente encargado de escalar el enemigo en función del espectro del audio que esté reproduciendo
-    /// TODO: Comentario correcto)
+    /// TODO: Comentario correcto?
     /// </summary>
     public class EnemyScaleModifier : MonoBehaviour
     {

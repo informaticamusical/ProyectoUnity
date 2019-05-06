@@ -7,8 +7,7 @@ namespace InformaticaMusical
     public class EnemyManager : MonoBehaviour
     {
         /// <summary>
-        /// TODO: Comentario
-        /// //un conductor por ritmo. Si todos siguen el ritmo de la cancion de fondo, solo habria un conductor, se tendria que cambiar el multiplicador por cada tipo de enemigo
+        /// Conductor del ritmo de la canción
         /// </summary>
         public ConductorData ConductorData;
 
@@ -32,13 +31,13 @@ namespace InformaticaMusical
             _board = board;
             Enemies = new List<EnemyGroup>();
 
-            ConductorData.init();
+            ConductorData.Init();
         }
 
 
         private void Update()
         {
-            ConductorData.update();
+            ConductorData.Update();
         }
 
         /// <summary>
@@ -80,10 +79,18 @@ namespace InformaticaMusical
                     Enemy enemy = Instantiate(enemyGroup.EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x, _board.TilePrefab.transform.localScale.y / 2.0f, enemyPos.y), Quaternion.identity, enemyGroup.transform);  //TODO: Instanciar en altura del tablero
                     enemy.Init(enemyAsset.Audios[enemyGroup.Enemies.Count], _board);
                     enemyGroup.Enemies.Add(enemy);
-                    _board.Tiles[enemyPos.x, enemyPos.y].HasEnemy = true;
-                    enemy.SetTilePosition(enemyPos.x, enemyPos.y);
+                    _board.Tiles[enemyPos.x, enemyPos.y] = true;
+                    enemy.Pos.Set(enemyPos.x, enemyPos.y);
                 }
             }
+
+        }
+
+
+
+
+        public void MoveEnemy(Enemy enemy, Vector2Int newPos)
+        {
 
         }
     }
