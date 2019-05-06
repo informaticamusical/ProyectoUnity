@@ -7,11 +7,6 @@ namespace InformaticaMusical
     public class EnemyManager : MonoBehaviour
     {
         /// <summary>
-        /// Conductor del ritmo de la canción
-        /// </summary>
-        public ConductorData ConductorData;
-
-        /// <summary>
         /// Lista con la lista de los diferentes tipos de enemigos
         /// </summary>
         private List<EnemyGroup> Enemies;
@@ -30,14 +25,6 @@ namespace InformaticaMusical
         {
             _board = board;
             Enemies = new List<EnemyGroup>();
-
-            ConductorData.Init();
-        }
-
-
-        private void Update()
-        {
-            ConductorData.Update();
         }
 
         /// <summary>
@@ -62,7 +49,7 @@ namespace InformaticaMusical
                 {
                     GameObject enemyGroupGO = new GameObject("EnemyGroup: " + enemyAsset.name);
                     enemyGroup = enemyGroupGO.AddComponent<EnemyGroup>();
-                    enemyGroup.Init(ConductorData, enemyAsset);
+                    enemyGroup.Init(enemyAsset);
                     enemyGroup.transform.parent = transform;
                     Enemies.Add(enemyGroup);
                 }
@@ -86,12 +73,5 @@ namespace InformaticaMusical
 
         }
 
-
-
-
-        public void MoveEnemy(Enemy enemy, Vector2Int newPos)
-        {
-
-        }
     }
 }

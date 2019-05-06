@@ -8,28 +8,32 @@ namespace InformaticaMusical
         public List<Enemy> Enemies { get; protected set; }
         public EnemyAsset EnemyAsset { get; protected set; }
 
-        private ConductorData _conductorData;
         double lastBeat;
 
-        public void Init(ConductorData conductorData, EnemyAsset enemyAsset)
+        public void Init(EnemyAsset enemyAsset)
         {
-            _conductorData = conductorData;
             EnemyAsset = enemyAsset;
 
             Enemies = new List<Enemy>();
+            lastBeat = 0.0d;
+
+            LevelManager.Instance.MusicResetDelegate += OnMusicReset;
+        }
+
+        private void OnMusicReset()
+        {
             lastBeat = 0.0d;
         }
 
         private void Update()
         {
             //Me tengo que mover
-            if (_conductorData.SongPosition > lastBeat + _conductorData.Crotchet * EnemyAsset.Multiplier)
+            if (LevelManager.Instance.ConductorData.SongPosition > lastBeat + LevelManager.Instance.ConductorData.Crotchet * EnemyAsset.Multiplier)
             {
-                // Aumentar el pitch de la melodia
                 foreach (Enemy enemy in Enemies)
-                    enemy.DoAction(_conductorData.TrackedSong.pitch);
+                    enemy.DoAction(LevelManager.Instance.ConductorData.TrackedSong.pitch);
 
-                lastBeat += _conductorData.Crotchet * EnemyAsset.Multiplier;
+                lastBeat += LevelManager.Instance.ConductorData.Crotchet * EnemyAsset.Multiplier;
             }
         }
     }

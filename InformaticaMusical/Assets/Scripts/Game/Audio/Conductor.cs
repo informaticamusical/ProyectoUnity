@@ -29,6 +29,7 @@ namespace InformaticaMusical
         {
             Crotchet = 60 / Bpm;
             dpsin = AudioSettings.dspTime;
+            SongPosition = 0.0d;
         }
 
         /// <summary>

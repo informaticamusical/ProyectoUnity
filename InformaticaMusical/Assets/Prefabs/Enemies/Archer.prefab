@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb17978668d4b74786536d59aff8607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TilesPerJump: 4
+  TilesPerJump: 2
 --- !u!114 &2312945513179082892
 MonoBehaviour:
   m_ObjectHideFlags: 0

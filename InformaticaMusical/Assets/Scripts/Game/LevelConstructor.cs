@@ -26,7 +26,6 @@ namespace InformaticaMusical
         [Header("References")]
         public Board BoardPrefab;
         public EnemyManager EnemyManager;
-        public AudioSource Music;
 
         [Header("UI")]
         public GameObject InitialPanel;
@@ -53,16 +52,13 @@ namespace InformaticaMusical
         {
             if (!PresentationMusic.isPlaying)
             {
-                StartGame();
+                LevelManager.Instance.Paused = false;
                 Destroy(InitialPanel);
+                Destroy(this.gameObject);
             }
         }
 
-        private void StartGame()
-        {
-            Music.Play();
-            Destroy(this.gameObject);
-        }
+
 
     }
 }

@@ -119,6 +119,12 @@ namespace InformaticaMusical
             yield break;
         }
 
+        public void Die()
+        {
+            GetComponentInParent<EnemyGroup>().Enemies.Remove(this);
+            Destroy(gameObject);
+        }
+
     }
 
 }
