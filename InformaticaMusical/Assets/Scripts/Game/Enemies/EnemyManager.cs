@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace InformaticaMusical
 {
+    /// <summary>
+    /// Manager de los enemigos
+    /// Permite instanciar enemigos en el tablero
+    /// </summary>
     public class EnemyManager : MonoBehaviour
     {
         /// <summary>
@@ -29,6 +33,7 @@ namespace InformaticaMusical
 
         /// <summary>
         /// Añade un enemigo en una posición
+        /// Lo añade a su lista de enemigos
         /// </summary>
         /// <param name="enemyAsset"></param>
         /// <param name="enemyPos"></param>
@@ -37,38 +42,26 @@ namespace InformaticaMusical
             //Comprobación de error
             if (enemyPos.x >= _board.GetWidth() || enemyPos.y >= _board.GetWidth())
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                Debug.LogError("Se ha tratado de añadir un enemigo en Tile Inexistente");
+                Debug.LogError("Se ha tratado de añadir un enemigo en Tile Inexistente: " + enemyPos);
 #endif
             else
             {
                 //Buscamos el grupo al que corresponde este enemigo
                 EnemyGroup enemyGroup = Enemies.FirstOrDefault(t => t.EnemyAsset == enemyAsset);
 
-                //Si no existe el grupo, se crea 
+                //Si no existe el grupo
                 if (enemyGroup == null)
                 {
+                    //Instancia e inicializa un grupo de enemigos
                     GameObject enemyGroupGO = new GameObject("EnemyGroup: " + enemyAsset.name);
                     enemyGroup = enemyGroupGO.AddComponent<EnemyGroup>();
-                    enemyGroup.Init(enemyAsset);
+                    enemyGroup.Init(enemyAsset, _board);
                     enemyGroup.transform.parent = transform;
                     Enemies.Add(enemyGroup);
                 }
 
-                //Comprobación de si se puede añadir este tipo de enemigo
-                if (enemyGroup.Enemies.Count == enemyGroup.EnemyAsset.Audios.Length)
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-                    Debug.LogError("No se pueden añadir más enemigos de este tipo");
-#endif
-
-                else
-                {
-                    //Creamos y añadimos el enemigo a su grupo
-                    Enemy enemy = Instantiate(enemyGroup.EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x, _board.TilePrefab.transform.localScale.y / 2.0f, enemyPos.y), Quaternion.identity, enemyGroup.transform);  //TODO: Instanciar en altura del tablero
-                    enemy.Init(enemyAsset.Audios[enemyGroup.Enemies.Count], _board);
-                    enemyGroup.Enemies.Add(enemy);
-                    _board.Tiles[enemyPos.x, enemyPos.y] = true;
-                    enemy.Pos.Set(enemyPos.x, enemyPos.y);
-                }
+                //Añadimos un enemigo al grupo                    
+                enemyGroup.AddEnemy(enemyPos);
             }
 
         }

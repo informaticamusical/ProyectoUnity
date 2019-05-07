@@ -24,13 +24,11 @@ namespace InformaticaMusical
         public AudioSource PresentationMusic;
 
         [Header("References")]
-        public Board BoardPrefab;
+        public Board Board;
         public EnemyManager EnemyManager;
 
         [Header("UI")]
         public GameObject InitialPanel;
-
-        private Board board;
 
         /// <summary>
         /// Construye el juego
@@ -38,27 +36,29 @@ namespace InformaticaMusical
         /// </summary>
         public void Start()
         {
-            board = Instantiate(BoardPrefab);
-            board.Init(BoardWidth);
-
-            EnemyManager.Init(board);
+            Board.Init(BoardWidth);
+            EnemyManager.Init(Board);
 
             //Instancia los enemigos iniciales
             for (int i = 0; i < InitialEnemies.Length; i++)
                 EnemyManager.AddEnemy(InitialEnemies[i].EnemyAsset, InitialEnemies[i].EnemyPos);
         }
 
+        /// <summary>
+        /// Detecta cuando se ha acabado la musica de presentación, despausa el juego y se destruye
+        /// </summary>
         private void Update()
         {
             if (!PresentationMusic.isPlaying)
             {
-                LevelManager.Instance.Paused = false;
+                //Inicio del nivel
+                LevelManager.Instance.Init();
+
+                //Destrucción
                 Destroy(InitialPanel);
                 Destroy(this.gameObject);
             }
         }
-
-
 
     }
 }

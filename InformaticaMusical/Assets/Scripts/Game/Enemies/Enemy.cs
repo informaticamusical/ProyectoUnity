@@ -13,11 +13,9 @@ namespace InformaticaMusical
         private static System.Random rnd = new System.Random(Guid.NewGuid().GetHashCode()); //TODO: Mejores formas de generar random?
         private static Vector2Int[] possibleDirs = { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1) };
 
-        [Header("Attributes")]
-        public int TilesPerJump;
-
         //Properties
         public Vector2Int Pos { get; set; } //Posición logica del enemigo
+        private int _tilesPerJump;
 
         //Own references
         private AudioSource audioSource;    //Referencia a su sonido
@@ -38,12 +36,16 @@ namespace InformaticaMusical
         /// </summary>
         /// <param name="audioClip"></param>
         /// <param name="board"></param>
-        public void Init(AudioClip audioClip, Board board)
+        public void Init(AudioClip audioClip, float audioVolume, int tilesPerJump, Board board)
         {
             audioSource.clip = audioClip;
+            audioSource.volume = audioVolume;
+
+            _tilesPerJump = tilesPerJump;
             _board = board;
 
-            Pos = new Vector2Int((int)transform.position.x,(int)transform.position.z);
+            Pos = new Vector2Int((int)transform.position.x, (int)transform.position.z);
+            _board.Tiles[Pos.x, Pos.y] = true;
         }
 
         /// <summary>
@@ -51,23 +53,27 @@ namespace InformaticaMusical
         /// TODO: UTILIZAR EL PITCH
         /// </summary>
         /// <param name="pitch"></param>
-        public void DoAction(float pitch)
+        public void DoAction()
         {
             // aumentar el pitch de este sonido
-            audioSource.pitch = pitch;
             audioSource.Play();
 
             MoveGameObject();
+        }
+
+        public void UpdatePitch()
+        {
+            audioSource.pitch = LevelManager.Instance.ConductorData.TrackedSong.pitch;
         }
 
         private void MoveGameObject()
         {
             int randomDir = rnd.Next(0, 4);
 
-            Vector2Int movement = possibleDirs[randomDir] * TilesPerJump;
+            Vector2Int movement = possibleDirs[randomDir] * _tilesPerJump;
             Vector2Int newPos = Pos + movement;
 
-            if (newPos.x < _board.GetWidth() && newPos.x >= 0 && newPos.y < _board.GetWidth() && newPos.y >= 0 && !_board.Tiles[newPos.x,newPos.y])
+            if (newPos.x < _board.GetWidth() && newPos.x >= 0 && newPos.y < _board.GetWidth() && newPos.y >= 0 && !_board.Tiles[newPos.x, newPos.y])
             {
                 _board.Tiles[Pos.x, Pos.y] = false;
                 _board.Tiles[newPos.x, newPos.y] = true;
@@ -119,10 +125,12 @@ namespace InformaticaMusical
             yield break;
         }
 
+        /// <summary>
+        /// Informa a su grupo de que sea eliminado
+        /// </summary>
         public void Die()
         {
-            GetComponentInParent<EnemyGroup>().Enemies.Remove(this);
-            Destroy(gameObject);
+            GetComponentInParent<EnemyGroup>().RemoveEnemy(this);
         }
 
     }

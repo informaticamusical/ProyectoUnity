@@ -11,7 +11,7 @@ public class FollowBeat : MonoBehaviour
     public InformaticaMusical.ConductorData ConductorData; 
 
     /// <summary>
-    /// Compás que se quiere seguir
+    /// Compás que se quiere seguir. 4 = Cada compás
     /// </summary>
     public double Multiplier = 4;
 
