@@ -22,7 +22,7 @@ namespace InformaticaMusical
         public double SongPosition { get; private set; }
         public double Crotchet { get; private set; }
 
-        private double offset = 0.2d;
+        private double offset = 0.0d;
         private double dpsin; //init time
 
         public void Init()
