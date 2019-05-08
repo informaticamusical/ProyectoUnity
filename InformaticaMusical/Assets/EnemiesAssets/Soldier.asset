@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Soldier
   m_EditorClassIdentifier: 
   Multiplier: 12
+  TilesPerJump: 1
+  AudioVolume: 0.5
+  Audios:
+  - {fileID: 8300000, guid: 17bfc67cdf687984b85909cd6df27a74, type: 3}
+  - {fileID: 8300000, guid: b4998a186fc8a3948b0c6dd09c86af5d, type: 3}
+  - {fileID: 8300000, guid: fac148170becc34489d4281789a4bc6f, type: 3}
   EnemyPrefab: {fileID: 1043646153409701143, guid: 9bd42e6b259ff9147b66a2eba88ba365,
     type: 3}
-  Audios:
-  - {fileID: 8300000, guid: 19653fc055448214282d84b410659537, type: 3}
-  - {fileID: 8300000, guid: 60aeea6378fee6948a53293bcabffd87, type: 3}
-  - {fileID: 8300000, guid: fac148170becc34489d4281789a4bc6f, type: 3}
