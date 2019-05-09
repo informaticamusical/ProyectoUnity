@@ -40,9 +40,7 @@ namespace InformaticaMusical
         {
             //Comprobación de si se puede añadir este tipo de enemigo
             if (enemies.Count == EnemyAsset.Audios.Length)
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.LogError("No se pueden añadir más enemigos de este tipo: " + EnemyAsset.name);
-#endif
 
             //Instancia
             Enemy enemy = Instantiate(EnemyAsset.EnemyPrefab, new Vector3(enemyPos.x, EnemyAsset.EnemyPrefab.transform.localScale.y / 2.0f, enemyPos.y), Quaternion.identity, transform);

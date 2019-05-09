@@ -41,9 +41,8 @@ namespace InformaticaMusical
         {
             //Comprobación de error
             if (enemyPos.x >= _board.GetWidth() || enemyPos.y >= _board.GetWidth())
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.LogError("Se ha tratado de añadir un enemigo en Tile Inexistente: " + enemyPos);
-#endif
+
             else
             {
                 //Buscamos el grupo al que corresponde este enemigo

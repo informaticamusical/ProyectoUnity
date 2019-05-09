@@ -75,6 +75,10 @@ namespace InformaticaMusical
 
                 ConductorData.Update();
             }
+
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Application.Quit();
         }
     }
 }
