@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Multiplier: 12
   TilesPerJump: 1
-  AudioVolume: 0.5
+  AudioVolume: 1.5
   Audios:
-  - {fileID: 8300000, guid: 17bfc67cdf687984b85909cd6df27a74, type: 3}
-  - {fileID: 8300000, guid: b4998a186fc8a3948b0c6dd09c86af5d, type: 3}
-  - {fileID: 8300000, guid: fac148170becc34489d4281789a4bc6f, type: 3}
+  - {fileID: 8300000, guid: 92aebfc43ef66654b83a6972c6d3013f, type: 3}
+  - {fileID: 8300000, guid: c1388f2bdedc59d40b3097b7e4815feb, type: 3}
+  - {fileID: 8300000, guid: 6b5ef6aa03da6b3419dcf6f954851b81, type: 3}
   EnemyPrefab: {fileID: 1043646153409701143, guid: 9bd42e6b259ff9147b66a2eba88ba365,
     type: 3}
